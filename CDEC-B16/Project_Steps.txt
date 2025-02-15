@@ -1,0 +1,60 @@
+Project: Netflix App using CICD pipeline
+
+https://github.com/abhipraydhoble/netflix.git
+GitHub - abhipraydhoble/netflix
+Contribute to abhipraydhoble/netflix development by creating an account on GitHub.
+		
+Step1: Launch EC2 instance
+       - AMI: Ubuntu
+       - Instance_Type: t2.medium
+       - Volume: 30 GB
+
+Step2: Connect To Instance
+      - Install Jenkins
+	username - admin
+	password - admin
+      - Install Docker
+      - Install SonarQube    # used for code quality testing
+	username - admin
+	password - 12345
+      - Install Trivy        # used to scan docker images
+
+Step3: Connect to Jenkins 
+
+Step4: Connect to SonarQube
+      - Admin->my account->security->generate token
+	squ_b602926b3e9eb0a79b6ed84a0b0d0e942cb35043
+
+Step5: In Jenkins
+     - Manage Jenkins: Credentials
+       - Sonar-Token
+       - Git-Cred
+       - Docker-Cred
+
+Step6: Install Required Plugins:
+       - Eclipse Temurin Installer 
+       - SonarQube Scanner
+       - NodeJs Plugin
+       - docker
+       - stage view
+
+Step7: Install  Tools: Manage Jenkins->Tools
+       - add jdk: "jdk17" ->install from adoptium.net->version- 17
+       - add SonarQube Scanner: "sonar-scanner"
+       - add NodeJs: "node16" -> version 16
+       - docker: "docker"
+
+Step8: Configure Sonar Server: Manage Jenkins->System
+      - name: "sonar-server"
+      - url:
+      - token:
+
+Step9: Create Pipeline
+
+Note: 
+- ensure jenkins user has permission to create container
+   # sudo usermod -aG docker jenkins
+   # newgrp docker
+   # sudo chmod 777 /var/run/docker.sock
+   
+- Verify all the names before running pipeline
